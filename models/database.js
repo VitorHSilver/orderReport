@@ -28,22 +28,41 @@ db.serialize(() => {
           'linguiça apimentada',
      ];
 
-     const stmt = db.prepare('INSERT INTO product (name, created_at) VALUES (?, ?)');
+     insertData(itens); // Insere os itens com quantidade 10
+     showAllDates(); // Mostra todos os registros
+     // dropTable();
+});
+
+function insertData(itens, qtd) {
+     const stmt = db.prepare('INSERT INTO product (name, qtd, created_at) VALUES (?, ?, ?)');
      itens.forEach((item) => {
           const createdAt = moment().tz('America/Sao_Paulo').format('YYYY-MM-DD HH:mm:ss');
-          stmt.run(item, createdAt, (err) => {
+          stmt.run(item, qtd, createdAt, (err) => {
                if (err) {
                     console.error(err.message);
                }
           });
      });
      stmt.finalize();
+}
 
-     db.each('SELECT id, name, created_at FROM product', (err, row) => {
+function showAllDates() {
+     db.each('SELECT id, name, qtd, created_at FROM product', (err, row) => {
           if (err) {
                console.error(err.message);
           } else {
-               console.log(row.id + ': ' + row.name + ' - ' + row.created_at);
+               console.log(row.id + ': ' + row.name + ' - ' + row.qtd + ' - ' + row.created_at);
           }
      });
-});
+}
+function dropTable() {
+     db.run('DROP TABLE IF EXISTS product', (err) => {
+          if (err) {
+               console.error(err.message);
+          } else {
+               console.log('Table dropped successfully.');
+          }
+     });
+}
+
+module.exports = { insertData, showAllDates };
