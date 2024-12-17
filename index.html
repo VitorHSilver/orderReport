@@ -5,16 +5,68 @@
           <meta charset="UTF-8" />
           <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
           <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
-          <title>Hello World!</title>
+          <title>Order Report</title>
           <link href="./src/output.css" rel="stylesheet" />
      </head>
-     <body>
-          <h1>Hello World!</h1>
-          We are using Node.js <span id="node-version"></span>, Chromium <span id="chrome-version"></span>, and Electron
-          <span id="electron-version"></span>.
+     <body class="">
+          <main class="grid grid-cols-2 items-center">
+               <section class="ml-4">
+                    <form id="form" action="#">
+                         <div clas>
+                              <h1 class="text-lg text-gray-900 italic flex justify-center flex-wrap pt-10">
+                                   <p class="">Insira as quantidades de espeto vendido abaixo:</p>
+                              </h1>
+                              <div class="text-3xl font-semibold"></div>
+                              <div class="hover:border-t border-customBlue w-[32rem] my-0 mx-auto"></div>
+                         </div>
 
-          <!-- You can also require other files to run in this process -->
-          <h1 class="text-8xl font-bold underline pt-10">Hello world!</h1>
-          <script src="./renderer.js"></script>
+                         <div class="flex flex-col mb-4">
+                              <div class="flex mt-8 mb-8 justify-around">
+                                   <label id="input-insert" for="input-insert" class="text-3xl font-semibold truncate"
+                                        >Medalhão de queijo:</label
+                                   >
+                                   <input
+                                        class="w-20 rounded-md text-center default:ring-1 border border-customBlue"
+                                        type="number"
+                                        value="10"
+                                   />
+                              </div>
+                              <div class="flex justify-evenly">
+                                   <button
+                                        id="submitButton"
+                                        type="submit"
+                                        class="bg-sucess uppercase text-gray-100 text-base px-4 p-3 rounded-md flex items-center gap-2 transition ease-in hover:scale-110 hover:bg-green-950 duration-150 shadow-md"
+                                   >
+                                        Gravar
+                                        <span
+                                             id="loadingSpinner"
+                                             class="hidden size-4 rounded-full border-4 border-white border-r-transparent animate-spin"
+                                        >
+                                        </span>
+                                   </button>
+                                   <button
+                                        type="reset"
+                                        class="bg-update uppercase text-white text-base px-4 rounded-md transition ease-in hover:scale-110 hover:bg-blue-900 duration-150 shadow-md"
+                                   >
+                                        Alterar
+                                   </button>
+                                   <span id="error" class="hidden"></span>
+                              </div>
+                         </div>
+                    </form>
+               </section>
+               <!-- Mostrar os ultimos dados inseridos no banco -->
+               <section class="justify-center items-center">
+                    <div class="flex justify-center">
+                         <div class="m-4 w-full bg-white border border-blue-800 shadow-2xl rounded-lg p-2">
+                              <h1 class="flex justify-center font-semibold text-2xl w-full mb-2">
+                                   Dados recentemente inseridos!
+                              </h1>
+                              <ul id="itemList" class="grid grid-cols-4 gap-0 justify-around items-start h-96"></ul>
+                         </div>
+                    </div>
+               </section>
+          </main>
+          <script src="./script.js"></script>
      </body>
 </html>

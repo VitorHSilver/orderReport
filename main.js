@@ -1,9 +1,13 @@
 const { app, BrowserWindow } = require('electron/main');
 const path = require('node:path');
 
+require('electron-reload')(__dirname, {
+     electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+});
+
 function createWindow() {
      const win = new BrowserWindow({
-          width: 800,
+          width: 1000,
           height: 600,
           webPreferences: {
                preload: path.join(__dirname, 'preload.js'),
@@ -11,7 +15,7 @@ function createWindow() {
           autoHideMenuBar: true,
      });
 
-     win.loadFile('index.html');
+     win.loadFile('./index.html');
 }
 
 app.whenReady().then(() => {
