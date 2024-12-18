@@ -6,7 +6,9 @@
           <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
           <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
           <title>Order Report</title>
+          <link rel="stylesheet" type="text/css" href="./node_modules/toastify-js/src/toastify.css" />
           <link href="./src/output.css" rel="stylesheet" />
+          <script src="./node_modules/toastify-js/src/toastify.js"></script>
      </head>
      <body class="">
           <main class="grid grid-cols-2 items-center">
@@ -67,6 +69,6 @@
                     </div>
                </section>
           </main>
-          <script src="./script.js"></script>
+          <script type="module" src="./script.js"></script>
      </body>
 </html>

@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
      const labelInsert = document.getElementById('input-insert');
      const inputField = document.querySelector('input[type="number"]');
      const itemList = document.getElementById('itemList');
-     const textError = document.getElementById('error');
 
      let currentIndex = 0;
 
@@ -37,11 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
           }
      }
 
-     function errorText() {
-          textError.add.classList.remove('hidden');
-          textError.innerText = 'Insira um valor real';
-     }
-
      // Função para atualizar o label com o próximo item
      function updateLabel() {
           console.log('Atualizando label...');
@@ -66,28 +60,41 @@ document.addEventListener('DOMContentLoaded', () => {
           itemList.appendChild(li);
      }
 
+     function errorText() {
+          Toastify({
+               text: 'Insira um valor válido!', // Mensagem mais específica
+               duration: 3000,
+               gravity: 'top',
+               position: 'left',
+               style: {
+                    background: '#e05e08',
+                    color: 'white',
+               },
+          }).showToast();
+     }
+
+     
      // Evento de submit do formulário
      itemForm.addEventListener('submit', (event) => {
           event.preventDefault();
 
-          const quantity = inputField.value.trim(); // Captura o valor do input
+          const quantity = inputField.value.trim();
 
-          if (quantity !== '') {
-               toggleSpinner(true); 
-               setTimeout(() => {
-                    toggleSpinner(false); 
-               }, 5000);
-
-               addDataToList(quantity);
-               inputField.value = ''; 
-               currentIndex++; 
-               updateLabel(); 
-          } else {
-               alert('Por favor, insira uma quantidade válida.')
-               
+          if (quantity === '' || isNaN(quantity) || parseFloat(quantity) < 0) {
+               errorText();
+               return; //
           }
+
+          toggleSpinner(true);
+          setTimeout(() => {
+               toggleSpinner(false);
+          }, 500);
+
+          addDataToList(quantity);
+          inputField.value = '';
+          currentIndex++;
+          updateLabel();
      });
 
      updateLabel(); // Inicializa o label com o primeiro item
-     errorText();
 });
